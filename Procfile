@@ -1,1 +1,1 @@
-web: bin/hello-ray-golang
+web: go install && hello-ray-golang
