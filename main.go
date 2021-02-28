@@ -29,7 +29,7 @@ func Hello(c echo.Context) error {
 
 func main() {
 	t := &Template{
-		templates: template.Must(template.ParseGlob("public/views/*.html")),
+		templates: template.Must(template.ParseGlob("/workspace/public/views/*.html")),
 	}
 	if rayName == "" {
 		rayName = "App"
