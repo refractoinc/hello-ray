@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 type Template struct {
@@ -28,8 +29,9 @@ func Hello(c echo.Context) error {
 }
 
 func main() {
+	helloTemplate := template.New("hello_page")
 	t := &Template{
-		templates: template.Must(template.ParseGlob("/workspace/public/views/*.html")),
+		templates: template.Must(helloTemplate.Parse(hello_page)),
 	}
 	if rayName == "" {
 		rayName = "App"
@@ -38,6 +40,15 @@ func main() {
 	e := echo.New()
 	e.Renderer = t
 	e.GET("/", Hello)
+	// Middleware
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+
+	e.GET("/", func(c echo.Context) error {
+		return c.Render(http.StatusOK, "hello_page", map[string]interface{}{
+			"name": rayName,
+		})
+	})
 
 	e.Logger.Fatal(e.Start(":8080"))
 }

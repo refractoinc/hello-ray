@@ -1,3 +1,6 @@
+package main
+
+const hello_page = `
 <html
   ><head>
     <title>Refracto | Say hello to your {{index . "name"}} 😎</title>
@@ -67,5 +70,6 @@
         </div>
       </div>
     </div>
-  </body></html
->
+  </body></html>
+
+`
