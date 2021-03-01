@@ -22,12 +22,6 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
-func Hello(c echo.Context) error {
-	return c.Render(http.StatusOK, "index.html", map[string]interface{}{
-		"name": rayName,
-	})
-}
-
 func main() {
 	helloTemplate := template.New("hello_page")
 	t := &Template{
@@ -39,7 +33,6 @@ func main() {
 
 	e := echo.New()
 	e.Renderer = t
-	e.GET("/", Hello)
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
